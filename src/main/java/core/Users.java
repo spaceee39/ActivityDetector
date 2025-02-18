@@ -1,7 +1,6 @@
 package core;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +8,12 @@ import java.util.Scanner;
 
 public class Users {
     private static List<String> Userlist = new ArrayList<>();
-    private File file = new File("C:\\Users\\leoca\\IdeaProjects\\ActivityWriterTelegramBot\\ActivityDetectorTelegramBot\\src\\main\\resources\\users.txt");
+    String path = Paths.get("").toAbsolutePath().toString();
+    String p = path+"\\src\\main\\resources\\users.txt";
+    private File file = new File(String.valueOf(p));
     int linescount = 0;
     static String[] userfiles;
 
-    static Path Datafilesdirectorypath = Paths.get("C:\\Users\\leoca\\IdeaProjects\\ActivityWriterTelegramBot\\ActivityDetectorTelegramBot\\src\\main\\resources\\UserData");
 
     public static boolean OldUser(long chatid){
         if(Userlist.contains(String.valueOf(chatid))){
