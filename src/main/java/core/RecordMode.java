@@ -6,15 +6,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import static core.UpdateInfo.gettedchatid;
 @Component
 public class RecordMode {
     public static void Record(Update update){
-        String s = "\\";
-        String pathname = "C:\\Users\\leoca\\IdeaProjects\\ActivityWriterTelegramBot\\ActivityDetectorTelegramBot\\src\\main\\resources\\UserData\\" + String.valueOf(gettedchatid) + s + LocalDate.now() + ".txt";
-        File datefile = new File(pathname);
+        String foldertoproject = Paths.get("").toAbsolutePath().toString();
+        StringBuilder folder = new StringBuilder(foldertoproject);
+        folder.append("\\src\\main\\resources\\UserData\\" + String.valueOf(gettedchatid) + "\\" + LocalDate.now() + ".txt");
+        File datefile = new File(String.valueOf(folder));
                 if (!datefile.exists()) {
             try {
                 datefile.createNewFile();

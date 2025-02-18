@@ -11,6 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,6 +22,7 @@ import static core.UpdateInfo.*;
 import static core.Users.OldUser;
 
 public class TelegramBot extends TelegramLongPollingBot {
+    String folder = Paths.get("").toAbsolutePath().toString();
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationcontext.xml");
     //......................................................получение компонентов через спринг
     BotConfig botConfig = context.getBean("botConfig", BotConfig.class);
@@ -72,7 +74,10 @@ public class TelegramBot extends TelegramLongPollingBot {
             if(OldUser(gettedchatid)){
                 sendSimpleMessage(gettedchatid, "Вы уже зарегистрированы.", "MainMenuKey");
             } else{
-                String pathname = "C:\\Users\\leoca\\OneDrive\\Рабочий стол\\ActivityDetectorTelegramBot\\src\\main\\resources\\UserData\\"+String.valueOf(gettedchatid);
+                String foldertoproject = Paths.get("").toAbsolutePath().toString();
+                StringBuilder folder = new StringBuilder(foldertoproject);
+                folder.append("\\src\\main\\resources\\UserData\\"+String.valueOf(gettedchatid));
+                String pathname = String.valueOf(folder);
                 File file = new File(pathname);
                 file.mkdirs();
                 users.AddUser(gettedchatid);
@@ -94,6 +99,9 @@ public class TelegramBot extends TelegramLongPollingBot {
                     break;
                 case "/help":
                     sendSimpleMessage(gettedchatid, "Для вызова главного меню напишите: \n 'Главное меню'.", "MainMenuKey");
+                    break;
+                case "/test":
+                    sendSimpleMessage(gettedchatid, folder, "");
                     break;
             }
         }
